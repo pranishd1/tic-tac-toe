@@ -11,15 +11,15 @@ public class CaseSelection {
     public int setPriorityForCases(int[][] allArray) {
         int[] caseNumber = new int[TOTAL_NO_OF_CASE];
         for (int caseItem = START; caseItem < TOTAL_NO_OF_CASE; caseItem++) {
-            if (allArray[caseItem][ITEM_USER] == 0 && allArray[caseItem][ITEM_PC] == 2) {
+            if (allArray[caseItem][ITEM_USER] == COUNT_ZERO && allArray[caseItem][ITEM_PC] == COUNT_TWO) {
                 caseNumber[caseItem] = FIRST_CASE;
-            } else if (allArray[caseItem][ITEM_USER] == 2 && allArray[caseItem][ITEM_PC] == 0) {
+            } else if (allArray[caseItem][ITEM_USER] == COUNT_TWO && allArray[caseItem][ITEM_PC] == COUNT_ZERO) {
                 caseNumber[caseItem] = SECOND_CASE;
-            } else if (allArray[caseItem][ITEM_USER] == 1 && allArray[caseItem][ITEM_PC] == 0) {
+            } else if (allArray[caseItem][ITEM_USER] == COUNT_ONE && allArray[caseItem][ITEM_PC] == COUNT_ZERO) {
                 caseNumber[caseItem] = THIRD_CASE;
-            } else if (allArray[caseItem][ITEM_USER] == 1 && allArray[caseItem][ITEM_PC] == 1) {
+            } else if (allArray[caseItem][ITEM_USER] == COUNT_ONE && allArray[caseItem][ITEM_PC] == COUNT_ONE) {
                 caseNumber[caseItem] = FORTH_CASE;
-            } else if (allArray[caseItem][ITEM_USER] == 0 && allArray[caseItem][ITEM_PC] == 0) {
+            } else if (allArray[caseItem][ITEM_USER] == COUNT_ZERO && allArray[caseItem][ITEM_PC] == COUNT_ZERO) {
                 caseNumber[caseItem] = FIFTH_CASE;
             } else {
                 caseNumber[caseItem] = SIXTH_CASE;
@@ -35,7 +35,7 @@ public class CaseSelection {
                 highestCaseStatus = caseStatus[caseItem];
             }
         }
-        List<Integer> collectionOfHighest=new ArrayList();
+        List<Integer> collectionOfHighest=new ArrayList<Integer>(0);
         for (int caseNumber = START; caseNumber < TOTAL_NO_OF_CASE; caseNumber++) {
             if (highestCaseStatus == caseStatus[caseNumber]) {
                 collectionOfHighest.add(caseNumber);

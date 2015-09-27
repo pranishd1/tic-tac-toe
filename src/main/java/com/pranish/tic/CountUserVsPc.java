@@ -11,10 +11,10 @@ public class CountUserVsPc extends CounterAbstact {
             }
         }
         CaseSelection caseSelection = new CaseSelection();
-        int tem = caseSelection.setPriorityForCases(countUserOrPcInCase);
+        int caseNumber = caseSelection.setPriorityForCases(countUserOrPcInCase);
         System.out.println();
-        Main3 f = new Main3();
-        int tofill = f.toFill(allArray, tem);
+        FillerForPc f = new FillerForPc();
+        int tofill = f.toFill(allArray, caseNumber);
         return String.valueOf(tofill);
     }
 
@@ -28,25 +28,19 @@ public class CountUserVsPc extends CounterAbstact {
         if (rowAndColumn.isAllSet(0)) {
             for (int row = START; row < END; row++) {
                 for (int column = START; column < END; column++) {
-
                     if (row == column && itemNumber == ITEM_USER) {
                         if (allArray[row][column].equals(userChoice)) {
                             userCount++;
                         }
                     }
-
                     if (row == column && itemNumber == ITEM_PC) {
                         if (allArray[row][column].equals(pcChoice)) {
                             pcCount++;
                         }
                     }
-
                 }
             }
-
-
         } else if (rowAndColumn.isAllSet(1)) {
-
             if (allArray[0][2].equals(userChoice)) {
                 userCount++;
             }
@@ -65,24 +59,18 @@ public class CountUserVsPc extends CounterAbstact {
             if (allArray[2][0].equals(pcChoice)) {
                 pcCount++;
             }
-
         } else {
-
             for (int i = rowAndColumn.getStartRow(); i <= rowAndColumn.getEndRow(); i++) {
                 for (int j = rowAndColumn.getStartColumn(); j <= rowAndColumn.getEndColumn(); j++) {
-
                     if (allArray[i][j].equals(userChoice)) {
                         userCount++;
                     }
                     if (allArray[i][j].equals(pcChoice)) {
                         pcCount++;
                     }
-
                 }
             }
-
         }
-
         if (itemNumber == 0) {
             return userCount;
         }
@@ -90,7 +78,6 @@ public class CountUserVsPc extends CounterAbstact {
             return pcCount;
         }
         return 0;
-
     }
 
     @Override
@@ -120,7 +107,5 @@ public class CountUserVsPc extends CounterAbstact {
     public int  setCaseAndCheck(String[][] allArray, int caseNumber, String itemName) {
         SetRowAndColumn setRowAndColumn=new SetRowAndColumn();
         return checkRowAndColumn(allArray, itemName, setRowAndColumn.getRowAndColumnForIndividualCase(caseNumber));
-
     }
-
 }
