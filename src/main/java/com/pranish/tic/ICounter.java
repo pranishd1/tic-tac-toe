@@ -8,4 +8,5 @@ public interface ICounter {
     int setCaseAndCheck(String[][] allArray, int caseNumber, String itemName);
     int checkRowAndColumn(String[][] allArray, int itemNumber, RowAndColumn rowAndColumn);
     int checkRowAndColumn(String[][] allArray, String itemName, RowAndColumn rowAndColumn);
+    String  getNumber(String[][] allArray);
 }

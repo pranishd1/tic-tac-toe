@@ -1,12 +1,8 @@
 package com.pranish.tic;
 
 import java.util.Scanner;
-
 import static com.pranish.tic.CommonConst.*;
 
-/**
- * Created by quality on 9/27/2015.
- */
 public class Processor {
     private String[][] allArray=new String[END][END];
 
@@ -20,14 +16,14 @@ public class Processor {
             }
         }
        this.allArray=allArray;
-    }
-
-    public  void printTicTacToeInFormat() {
-        String[][] tempArray=this.allArray;
         System.out.println("You need to write a number given except X and 0");
         System.out.println();
         System.out.println("X represent your selection and 0 is from PC");
         System.out.println();
+    }
+
+    public  void printTicTacToeInFormat() {
+        String[][] tempArray=this.allArray;
         System.out.println("The item number are as Follows :\n");
         for (int i = START; i < END; i++) {
             for (int j = START; j < END; j++) {
@@ -43,28 +39,8 @@ public class Processor {
 
     }
 
-    public boolean hasConditionMet(){
-       if(isEmpty()&&hasCountMet()){
-           return true;
-       }
-        return false;
-    }
-
-    public  void printWinner(){
-        if (whoIsWinner() == DRAW) {
-            System.out.println("No one Wins");
-        } else if (whoIsWinner() == USER_WINNER) {
-            System.out.println("You Win");
-        } else if (whoIsWinner() == PC_WINNER) {
-            System.out.println("Pc Wins");
-        } else {
-            System.out.println("No one Wins");
-        }
-    }
-
     public   void process() {
         while (hasConditionMet()) {
-
             if (hasConditionMet()) {
                 getSelectionFromUser();
             }
@@ -77,10 +53,29 @@ public class Processor {
         printWinner();
     }
 
-    public  void getSelectionFromPc() {
+    private boolean hasConditionMet(){
+       if(isEmpty()&&hasCountMet()){
+           return true;
+       }
+        return false;
+    }
+
+    private   void printWinner(){
+        if (whoIsWinner() == DRAW) {
+            System.out.println("No one Wins");
+        } else if (whoIsWinner() == USER_WINNER) {
+            System.out.println("You Win");
+        } else if (whoIsWinner() == PC_WINNER) {
+            System.out.println("Pc Wins");
+        } else {
+            System.out.println("No one Wins");
+        }
+    }
+
+    private   void getSelectionFromPc() {
         System.out.println("Pc's turn.. ");
         System.out.println();
-        CountUserVsPc countUserVsPc = new CountUserVsPc();
+        ICounter countUserVsPc = new CountUserVsPc();
         String holder = countUserVsPc.getNumber(allArray);
         System.out.println("Pc selected -  "+holder);
         for (int i = START; i < END; i++) {
@@ -92,7 +87,7 @@ public class Processor {
         }
     }
 
-    public  void getSelectionFromUser() {
+    private   void getSelectionFromUser() {
         Scanner s = new Scanner(System.in);
         System.out.println("which item do you select.... (Write the number except X and 0)");
         System.out.println();
@@ -104,8 +99,6 @@ public class Processor {
                 }
             }
         }
-
-
     }
 
     private boolean isEmpty(){

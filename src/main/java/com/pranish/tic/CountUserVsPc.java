@@ -2,21 +2,21 @@ package com.pranish.tic;
 import static com.pranish.tic.CommonConst.*;
 public class CountUserVsPc extends CounterAbstact {
 
+    @Override
     public String getNumber(String[][] allArray) {
-        int[][] x = new int[TOTAL_NO_OF_CASE][NUMBER_OF_ITEMS];
+        int[][] countUserOrPcInCase = new int[TOTAL_NO_OF_CASE][NUMBER_OF_ITEMS];
         for (int caseNumber = START; caseNumber < TOTAL_NO_OF_CASE; caseNumber++) {
             for (int userOrPc = START; userOrPc < NUMBER_OF_ITEMS; userOrPc++) {
-                x[caseNumber][userOrPc] = countOccurance(allArray, caseNumber, userOrPc);
+                countUserOrPcInCase[caseNumber][userOrPc] = countOccurance(allArray, caseNumber, userOrPc);
             }
         }
-        Main5 temp = new Main5();
-        int tem = temp.tic_tac(x);
+        CaseSelection caseSelection = new CaseSelection();
+        int tem = caseSelection.setPriorityForCases(countUserOrPcInCase);
         System.out.println();
         Main3 f = new Main3();
         int tofill = f.toFill(allArray, tem);
         return String.valueOf(tofill);
     }
-
 
     @Override
     public int checkRowAndColumn(String[][] allArray, int itemNumber, RowAndColumn rowAndColumn) {
@@ -92,7 +92,6 @@ public class CountUserVsPc extends CounterAbstact {
         return 0;
 
     }
-
 
     @Override
     public int checkRowAndColumn(String[][] matrixArray, String userOrPc, RowAndColumn rowAndColumn) {
