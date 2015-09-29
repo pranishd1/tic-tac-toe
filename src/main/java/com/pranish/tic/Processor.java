@@ -136,7 +136,7 @@ public class Processor {
         String[][] tempArray=this.allArray;
         int countRepeat;
         ICounter countUserVsPc = new CountUserVsPc();
-        String[] f = {X, O};
+        String[] f = USER_AND_PC;
         int winner = 0;
         for (int userOrPc = START; userOrPc < NUMBER_OF_ITEMS; userOrPc++) {
             for (int caseNumber = START; caseNumber < TOTAL_NO_OF_CASE; caseNumber++) {

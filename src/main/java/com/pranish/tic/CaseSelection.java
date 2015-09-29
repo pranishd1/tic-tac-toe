@@ -41,7 +41,7 @@ public class CaseSelection {
                 collectionOfHighest.add(caseNumber);
             }
         }
-        int finalDecidedCase = 0;
+        int finalDecidedCase = ZERO;
         boolean checker = true;
         while (checker) {
             finalDecidedCase = getRandomNumberFromSpecifiedData(collectionOfHighest);

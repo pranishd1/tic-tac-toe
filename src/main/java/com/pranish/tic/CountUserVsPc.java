@@ -4,6 +4,9 @@ public class CountUserVsPc extends CounterAbstact {
 
     @Override
     public String getNumber(String[][] allArray) {
+        if(isOverridable(allArray)){
+            return getOverRiddenNumber(allArray);
+        }
         int[][] countUserOrPcInCase = new int[TOTAL_NO_OF_CASE][NUMBER_OF_ITEMS];
         for (int caseNumber = START; caseNumber < TOTAL_NO_OF_CASE; caseNumber++) {
             for (int userOrPc = START; userOrPc < NUMBER_OF_ITEMS; userOrPc++) {
@@ -13,9 +16,9 @@ public class CountUserVsPc extends CounterAbstact {
         CaseSelection caseSelection = new CaseSelection();
         int caseNumber = caseSelection.setPriorityForCases(countUserOrPcInCase);
         System.out.println();
-        FillerForPc f = new FillerForPc();
-        int tofill = f.toFill(allArray, caseNumber);
-        return String.valueOf(tofill);
+        FillerForPc fillerForPc = new FillerForPc();
+        int toFill = fillerForPc.toFill(allArray, caseNumber);
+        return String.valueOf(toFill);
     }
 
     @Override
@@ -103,9 +106,17 @@ public class CountUserVsPc extends CounterAbstact {
         return count;
     }
 
-    @Override
-    public int  setCaseAndCheck(String[][] allArray, int caseNumber, String itemName) {
-        SetRowAndColumn setRowAndColumn=new SetRowAndColumn();
-        return checkRowAndColumn(allArray, itemName, setRowAndColumn.getRowAndColumnForIndividualCase(caseNumber));
+    protected boolean isOverridable(String[][] allArray){
+        if(allArray[ONE][ONE].equals(FIVE)){
+            return true;
+        }
+        return false;
+    }
+
+    protected String getOverRiddenNumber(String[][] allArray){
+        if(allArray[ONE][ONE].equals(FIVE)){
+            return FIVE;
+        }
+        return "";
     }
 }
