@@ -1,12 +1,10 @@
 package com.pranish.tic;
 
-/**
- * Created by quality on 9/27/2015.
- */
+
 public interface ICounter {
-    int countOccurance(String[][] allArray, int caseNumber, int itemNumber);
-    int setCaseAndCheck(String[][] allArray, int caseNumber, String itemName);
-    int checkRowAndColumn(String[][] allArray, int itemNumber, RowAndColumn rowAndColumn);
-    int checkRowAndColumn(String[][] allArray, String itemName, RowAndColumn rowAndColumn);
-    String  getNumber(String[][] allArray);
+    int countOccurance(Holder holder, int caseNumber, int itemNumber);
+    int setCaseAndCheck(Holder holder, int caseNumber, String itemName);
+    int checkRowAndColumn(Holder holder, int itemNumber, RowAndColumn rowAndColumn);
+    int checkRowAndColumn(Holder holder, String itemName, RowAndColumn rowAndColumn);
+    String  getNumber(Holder holder);
 }

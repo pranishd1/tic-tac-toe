@@ -1,27 +1,36 @@
 package com.pranish.tic;
 
-/**
- * Created by quality on 9/27/2015.
- */
 
   public   class FillerRowAndColumn{
         private int row;
         private int column;
+    private String value;
 
-        public int getRow() {
+    public String getValue() {
+        return value;
+    }
+
+    public FillerRowAndColumn setValue(String value) {
+        this.value = value;
+        return this;
+    }
+
+    public int getRow() {
             return row;
         }
 
-        public void setRow(int row) {
+        public FillerRowAndColumn setRow(int row) {
             this.row = row;
+            return this;
         }
 
         public int getColumn() {
             return column;
         }
 
-        public void setColumn(int column) {
+        public FillerRowAndColumn setColumn(int column) {
             this.column = column;
+            return this;
         }
     }
 

@@ -1,13 +1,19 @@
 package com.pranish.tic;
 
-/**
- * Created by quality on 9/27/2015.
- */
 public class RowAndColumn {
     private int startRow=0;
     private int endRow=0;
     private int startColumn=0;
     private int endColumn=0;
+    private int caseNumber=0;
+
+    public int getCaseNumber() {
+        return caseNumber;
+    }
+
+    public void setCaseNumber(int caseNumber) {
+        this.caseNumber = caseNumber;
+    }
 
     public int getStartRow() {
         return startRow;
@@ -45,11 +51,12 @@ public class RowAndColumn {
         return this;
     }
 
-    public void setAll(int allValue){
+    public RowAndColumn setAll(int allValue){
         this.startRow=allValue;
         this.endRow=allValue;
         this.startColumn=allValue;
         this.endColumn=allValue;
+        return this;
     }
 
     public boolean isAllSet(int checkValue){
@@ -58,6 +65,8 @@ public class RowAndColumn {
         }
         return false;
     }
+
+
 
 
 }

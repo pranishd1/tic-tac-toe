@@ -4,42 +4,23 @@ import java.util.Scanner;
 import static com.pranish.tic.CommonConst.*;
 
 public class Processor {
-    private String[][] allArray=new String[END][END];
-
-    public void initializeArray(){
-        String[][] allArray=new String[END][END];
-        int numberForArray = START;
-        for (int i = START; i < END; i++) {
-            for (int j = START; j < END; j++) {
-                numberForArray++;
-                allArray[i][j] = String.valueOf(numberForArray);
-            }
-        }
-       this.allArray=allArray;
-        System.out.println("You need to write a number given except X and 0");
-        System.out.println();
-        System.out.println("X represent your selection and 0 is from PC");
-        System.out.println();
+    private Holder holder=null;
+    ICounter countUserVsPc=null;
+    Scanner scanner=null;
+    public Processor(Holder holder) {
+        this.holder=holder;
+        this.countUserVsPc=new CountUserVsPc();
     }
-
     public  void printTicTacToeInFormat() {
-        String[][] tempArray=this.allArray;
         System.out.println("The item number are as Follows :\n");
-        for (int i = START; i < END; i++) {
-            for (int j = START; j < END; j++) {
-                System.out.print("  " + tempArray[i][j] + "  ");
-            }
-            System.out.println();
-            System.out.println();
-        }
+        holder.printHolder();
         for (int g = 0; g < 4; g++) {
             System.out.println();
             System.out.println();
         }
-
     }
 
-    public   void process() {
+    public   void process() throws Exception {
         while (hasConditionMet()) {
             if (hasConditionMet()) {
                 getSelectionFromUser();
@@ -52,12 +33,8 @@ public class Processor {
         }
         printWinner();
     }
-
-    private boolean hasConditionMet(){
-       if(isEmpty()&&hasCountMet()){
-           return true;
-       }
-        return false;
+    private boolean hasConditionMet() throws Exception {
+       return isEmpty()||hasCountMet();
     }
 
     private   void printWinner(){
@@ -73,57 +50,44 @@ public class Processor {
     }
 
     private   void getSelectionFromPc() {
-        System.out.println("Pc's turn.. ");
-        System.out.println();
-        ICounter countUserVsPc = new CountUserVsPc();
-        String holder = countUserVsPc.getNumber(allArray);
-        System.out.println("Pc selected -  "+holder);
-        for (int i = START; i < END; i++) {
-            for (int j = START; j < END; j++) {
-                if (allArray[i][j].equals((holder))) {
-                    allArray[i][j] = O;
-                }
-            }
-        }
+       getTitle(ITEM_PC);
+        String holder = countUserVsPc.getNumber(this.holder);
+        System.out.println("Pc selected -  " + holder);
+        this.holder.putInPosition(Integer.parseInt(holder),PC_CHOICE);
     }
 
     private   void getSelectionFromUser() {
-        Scanner s = new Scanner(System.in);
-        System.out.println("which item do you select.... (Write the number except X and 0)");
-        System.out.println();
-        String first = String.valueOf(s.nextInt());
-        for (int i = START; i < END; i++) {
-            for (int j = START; j < END; j++) {
-                if (allArray[i][j].equals((first))) {
-                    allArray[i][j] = X;
-                }
-            }
+        getTitle(ITEM_USER);
+       scanner = new Scanner(System.in);
+        int selectedPosition = scanner.nextInt();
+        this.holder.putInPosition(selectedPosition,X);
+    }
+
+    private void getTitle(int forUserOrPc) {
+        if (forUserOrPc == ITEM_USER) {
+            System.out.println("which item do you select.... (Write the number except X and 0)");
+            System.out.println();
+        }
+        if (forUserOrPc == ITEM_PC) {
+            System.out.println("Pc's turn.. ");
+            System.out.println();
         }
     }
 
-    private boolean isEmpty(){
-        String[][] tempArray=this.allArray;
-        boolean check = false;
-        for (int i = START; i < END; i++) {
-            for (int j = START; j < END; j++) {
-                if (!allArray[i][j].equals(X) && !tempArray[i][j].equals(O)) {
-                    check = true;
-                }
-            }
-        }
-        return check;
+    private boolean isEmpty() throws Exception {
+        if(this.holder==null)
+            throw new Exception("Board not initialized");
+        return this.holder.isEmpty();
     }
 
     private   boolean hasCountMet() {
-        String[][] tempArray=this.allArray;
         int totalNumberOfCount;
-        ICounter countUserVsPc = new CountUserVsPc();
         String[] userOrPc = USER_AND_PC;
         boolean condition = true;
-        for (int items = START; items < NUMBER_OF_ITEMS; items++) {
+         for (int items = START; items < NUMBER_OF_ITEMS; items++) {
             for (int cases = START; cases < TOTAL_NO_OF_CASE; cases++) {
-                totalNumberOfCount = countUserVsPc.setCaseAndCheck(tempArray, cases, userOrPc[items]);
-                if (totalNumberOfCount == CommonConst.ALL_CHECKED) {
+                totalNumberOfCount = countUserVsPc.setCaseAndCheck(this.holder, cases, userOrPc[items]);
+                if (totalNumberOfCount == CommonConst.ALL_CHECKED_POSITIVE) {
                     condition = false;
                     break;
                 }
@@ -133,19 +97,18 @@ public class Processor {
     }
 
     private   int whoIsWinner() {
-        String[][] tempArray=this.allArray;
         int countRepeat;
         ICounter countUserVsPc = new CountUserVsPc();
         String[] f = USER_AND_PC;
         int winner = 0;
         for (int userOrPc = START; userOrPc < NUMBER_OF_ITEMS; userOrPc++) {
             for (int caseNumber = START; caseNumber < TOTAL_NO_OF_CASE; caseNumber++) {
-                countRepeat = countUserVsPc.setCaseAndCheck(tempArray, caseNumber, f[userOrPc]);
-                if (countRepeat == ALL_CHECKED && f[userOrPc].equals(X)) {
+                countRepeat = countUserVsPc.setCaseAndCheck(this.holder, caseNumber, f[userOrPc]);
+                if (countRepeat == ALL_CHECKED_POSITIVE && f[userOrPc].equals(X)) {
                     winner = USER_WINNER;
                     break;
                 }
-                if (countRepeat == ALL_CHECKED && f[userOrPc].equals(O)) {
+                if (countRepeat == ALL_CHECKED_POSITIVE && f[userOrPc].equals(O)) {
                     winner = PC_WINNER;
                     break;
                 }
